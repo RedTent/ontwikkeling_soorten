@@ -27,7 +27,7 @@ ui <- fluidPage(
       ), # end side bar
       
       mainPanel(
-         leafletOutput("kaart")
+         leafletOutput("kaart", height = 800)
       )
    )
 ) # end of UI
@@ -35,25 +35,34 @@ ui <- fluidPage(
 # SERVER
 server <- function(input, output, session) {
    
-   output$distPlot <- renderPlot({
-      x    <- faithful[, 2] 
-      bins <- seq(min(x), max(x), length.out = input$bins + 1)
-      hist(x, breaks = bins, col = 'darkgray', border = 'white')
-   })
+
    
    output$kaart <- renderLeaflet({
      leaflet() %>% addTiles() %>% addCircleMarkers(data=meetpuntendf, label = ~mp)
      
    }) # end kaart
    
-   #leafletProxy(mapId = "kaart")
+   observe({
+     mp_selectie <- mp_sel_taxon()
+     leafletProxy(mapId = "kaart") %>% clearMarkers()
+     if(nrow(mp_selectie)>0){leafletProxy(mapId = "kaart") %>% addCircleMarkers(data = mp_selectie, label = ~mp, lng = ~long, lat = ~lat)}
+     
+   }) 
    
+   #update taxa keuzelijst
    observe({
      taxalijst <- data %>% filter(taxatype == input$taxatype_sel) %>% select(naam) %>% unique() %>% c(recursive=FALSE)
-     print(taxalijst)
      updateSelectInput(session, inputId = "taxon_sel", choices = taxalijst)
    })
    
+   mp_sel_taxon <- reactive({
+     data_sel <- data %>% filter(taxatype == input$taxatype_sel, naam == input$taxon_sel, jaar == input$jaar_sel)
+     mp_sel_taxon <- meetpuntendf %>% semi_join(data_sel, by = "mp")
+     print(mp_sel_taxon)
+     mp_sel_taxon
+   })
+   
+   #observe({print(mp_sel()) })
    
 } # end of server
 
