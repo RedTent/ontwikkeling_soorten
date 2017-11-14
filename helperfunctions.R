@@ -8,16 +8,16 @@ import_meetpunten <- function(meetpuntencsv="meetpunten.csv"){
 }
 
 
-import_meetpunten_latlong <- function(meetpuntencsv="meetpunten.csv", X = "X", Y = "Y"){
-  require(rgdal)
-  require(dplyr)
-  meetpuntendf <- import_meetpunten(meetpuntencsv)
-  longlat <- meetpuntendf %>% filter(X != 0, Y != 0) %>%  mutate(long = X, lat = Y)
-  coordinates(longlat) = ~long+lat
-  proj4string(longlat) <- CRS("+init=EPSG:28992")
-  longlat <- spTransform(longlat,"+init=EPSG:4326")
-  meetpuntendf <- left_join(meetpuntendf, select(as_data_frame(longlat), mp, long, lat), by = "mp")
-}
+#import_meetpunten_latlong <- function(meetpuntencsv="meetpunten.csv", X = "X", Y = "Y"){
+#  require(rgdal)
+#  require(dplyr)
+#  meetpuntendf <- import_meetpunten(meetpuntencsv)
+#  longlat <- meetpuntendf %>% filter(X != 0, Y != 0) %>%  mutate(long = X, lat = Y)
+#  coordinates(longlat) = ~long+lat
+#  proj4string(longlat) <- CRS("+init=EPSG:28992")
+#  longlat <- spTransform(longlat,"+init=EPSG:4326")
+#  meetpuntendf <- left_join(meetpuntendf, select(as_data_frame(longlat), mp, long, lat), by = "mp")
+#}
 
 import_bio <- function(biologiecsv = "biologie.csv"){
   require(readr)

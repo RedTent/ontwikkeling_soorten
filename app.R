@@ -9,7 +9,8 @@ library(readr)
 
 
 HHSKthema()
-meetpuntendf <- import_meetpunten_latlong("data/meetpunten.csv")
+#meetpuntendf <- import_meetpunten_latlong("data/meetpunten.csv")
+meetpuntendf <- import_meetpunten("data/meetpunten2.csv")
 data <- import_bio("data/biologie.csv")
 taxatypen <- read_csv2("data/taxatype.csv", col_types = "cc") %>% df_to_named_list()
 
