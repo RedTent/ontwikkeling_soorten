@@ -1,10 +1,10 @@
-taxatype_code;taxatype_naam
-AMFBE;Amfibieen
-DIATM;Diatomeeen
-FYTPT;Fytoplankton
-MACAG;Macro-algen
-MACEV;Macro-evertebraten
-MACFT;Macrofyten
-NEMTD;Nematoden
-VISSN;Vissen
-ZOOPT;Zooplankton
+taxatype_code;taxatype_naam;taxatype_naam2
+AMFBE;Amfibieen;Amfibieen
+DIATM;Kiezelwieren;Diatomeeen
+FYTPT;Algen;Fytoplankton
+MACAG;Macro-algen;Macro-algen
+MACEV;Ongewervelde dieren;Macro-evertebraten
+MACFT;Planten;Macrofyten
+NEMTD;Nematoden;Nematoden
+VISSN;Vissen;Vissen
+ZOOPT;Watervlooien;Zooplankton

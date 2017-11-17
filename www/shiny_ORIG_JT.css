@@ -28,6 +28,8 @@ EDITS JT
   
 #HHSK_logo{
  height:80px;
+ float:left;
+ padding-bottom:10px;
   
 }  
 
@@ -41,6 +43,11 @@ body{
 .control-label{
   color:#0079c2;
   font-family:inherit;
+}
+
+/*ronde leaflet legenda*/
+.legend i{
+  border-radius:50%;
 }
   
 #Titel{
