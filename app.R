@@ -15,15 +15,15 @@ meetpuntendf <- import_meetpunten("data/meetpunten2.csv")
 data <- import_bio("data/biologie.csv")
 taxatypen <- read_csv2("data/taxatype.csv", col_types = "cc") %>% df_to_named_list()
 
-waterschapsgrens <- readOGR(dsn='data/shape/Waterschapsgrens.shp', stringsAsFactors = FALSE) %>% spTransform("+init=EPSG:28992") %>% spTransform("+init=EPSG:4326")
+waterschapsgrens <- readOGR(dsn='data/shape/wsgrens2.shp', stringsAsFactors = FALSE)
 #addPolylines(data = waterschapsgrens, color = "red", weight = "3")
 
 
 # UI
-ui <- fluidPage(
+ui <- fluidPage(theme = "shiny_ORIG_JT.css",
    
    
-   titlePanel(title = div("Ontwikkeling soorten", img(src = "logo website.png", id="HHSK_logo")), windowTitle = "HHSK - Ontwikkeling soorten"),
+   titlePanel(title = div(img(src = "logo website.png", id="HHSK_logo", height=80), "ONTWIKKELING SOORTEN"), windowTitle = "HHSK - Ontwikkeling soorten"),
    
    
    sidebarLayout(
@@ -31,6 +31,7 @@ ui <- fluidPage(
         selectInput("taxatype_sel", "Kies een taxontype", choices = taxatypen, selected = "MACFT"),
         selectInput("taxon_sel", "Kies een taxon", choices = taxatypen, multiple = TRUE, selected = "Stratiotes aloides"), 
         sliderInput("jaar_sel","Geselecteerd jaar", min = min(data$jaar), max = max(data$jaar), value = min(data$jaar), animate = TRUE, step = 1, sep = "")
+        
       ), # end side bar
       
       mainPanel(

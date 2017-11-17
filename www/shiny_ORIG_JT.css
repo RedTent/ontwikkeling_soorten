@@ -26,6 +26,30 @@ EDITS JT
   line-height:1.1;
   color:#0079c2} /*HHSK blauw*/
   
+#HHSK_logo{
+ height:80px;
+  
+}  
+
+body{
+  font-family:Verdana,"Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-size:14px;
+  line-height:1.42857143;
+  color:#333;
+  background-color:#fff}
+  
+.control-label{
+  color:#0079c2;
+  font-family:inherit;
+}
+  
+#Titel{
+  }
+  
+  
+  
+/*vanaf hier ongewijzigd*/
+  
 body{
   margin:0}
 
@@ -248,12 +272,7 @@ html{
   font-size:10px;
   -webkit-tap-highlight-color:rgba(0,0,0,0)}
 
-body{
-  font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
-  font-size:14px;
-  line-height:1.42857143;
-  color:#333;
-  background-color:#fff}
+
 
 button,input,select,textarea{
   font-family:inherit;
