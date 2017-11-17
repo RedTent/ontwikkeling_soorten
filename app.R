@@ -31,10 +31,11 @@ ui <- fluidPage(theme = "shiny_ORIG_JT.css",
         selectInput("taxatype_sel", "Kies een taxontype", choices = taxatypen, selected = "MACFT"),
         selectInput("taxon_sel", "Kies een taxon", choices = taxatypen, multiple = TRUE, selected = "Stratiotes aloides"), 
         checkboxInput("ned_namen", "Gebruik Nederlandse namen"),
-        textOutput("opm_ned_namen"),
+        htmlOutput("opm_ned_namen"),
         HTML("</br>"),
-        sliderInput("jaar_sel","Geselecteerd jaar", min = min(data$jaar), max = max(data$jaar), value = min(data$jaar), animate = TRUE, step = 1, sep = "")
-        
+        sliderInput("jaar_sel","Geselecteerd jaar", min = min(data$jaar), max = max(data$jaar), value = min(data$jaar), animate = TRUE, step = 1, sep = ""),
+        HTML("</br>"),
+        htmlOutput("samvat")
       ), # end side bar
       
       mainPanel(
@@ -101,10 +102,15 @@ server <- function(input, output, session) {
    })
    
    output$opm_ned_namen <- renderText({
-     if(input$ned_namen){"N.B. Alleen taxa met een Nederlandse naam worden weergegeven. Veel taxa hebben alleen een Latijnse naam. Nederlandse namen zijn gebruikelijk voor planten en vissen."}else{""}
+     if(input$ned_namen){"<b>N.B.</b> Alleen taxa met een Nederlandse naam worden weergegeven. Veel taxa hebben alleen een Latijnse naam. </br></br>
+       Planten en vissen hebben gewoonlijk een Nederlandse naam."}else{""}
    })
    
-   
+   output$samvat <- renderText({
+     taxastring <- paste(as.vector(input$taxon_sel, mode = "character"), collapse = ", ")
+     paste0("In het jaar <b>", input$jaar_sel, "</b> is/zijn de geselecteerde soort(en) op <b>", nrow(mp_sel_taxon()),"</b> van de <b>",nrow(mp_sel_jaar()), "</b> locaties aangetroffen")
+     
+   })
    
 } # end of server
 
