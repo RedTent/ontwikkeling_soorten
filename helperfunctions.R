@@ -19,16 +19,16 @@ import_meetpunten_latlong <- function(meetpuntencsv="meetpunten.csv", X = "X", Y
   meetpuntendf <- left_join(meetpuntendf, select(as_data_frame(longlat), mp, long, lat), by = "mp")
 }
 
-import_bio <- function(biologiecsv = "biologie.csv"){
-  require(readr)
-  require(lubridate)
-  require(dplyr)
-  biodf <- read_csv2(biologiecsv,col_types=cols(datum=col_date(format="%d-%m-%Y %H:%M:%S")))
-  biodf$monsterid <- group_indices(biodf, mp,datum,methode)
-  biodf$jaar <- as.integer(year(biodf$datum))
-  biodf <- biodf %>% select(-stadium,-stadiumwaarde) %>% unique()
-  biodf
-}
+# import_bio <- function(biologiecsv = "biologie.csv"){
+#   require(readr)
+#   require(lubridate)
+#   require(dplyr)
+#   biodf <- read_csv2(biologiecsv,col_types=cols(datum=col_date(format="%d-%m-%Y %H:%M:%S")))
+#   biodf$monsterid <- group_indices(biodf, mp,datum,methode)
+#   biodf$jaar <- as.integer(year(biodf$datum))
+#   biodf <- biodf %>% select(-stadium,-stadiumwaarde) %>% unique()
+#   biodf
+# }
 
 df_to_named_list <- function(df, waarden=1, namen=2){
   require(dplyr)

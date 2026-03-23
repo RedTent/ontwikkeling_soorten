@@ -6,16 +6,19 @@ library(dplyr)
 library(leaflet)
 library(lubridate)
 library(readr)
-library(rgdal)
+# library(rgdal)
+library(sf)
 
 
 HHSKthema()
 #meetpuntendf <- import_meetpunten_latlong("data/meetpunten.csv")
-meetpuntendf <- import_meetpunten("data/meetpunten2.csv")
-data <- import_bio("data/biologie.csv")
+# meetpuntendf <- import_meetpunten("data/meetpunten2.csv")
+meetpuntendf <- HHSKwkl::data_online("meetpunten.rds")
+# data <- import_bio("data/biologie.csv")
+data <- HHSKwkl::data_online("biologie.rds") %>% HHSKwkl::add_jaar() %>% mutate(nednaam = twn::twn_localname(naam))
 taxatypen <- read_csv2("data/taxatype.csv", col_types = "cc") %>% filter(taxatype_code %in% c("MACFT","MACEV","VISSN","FYTPT","DIATM","ZOOPT")) %>% arrange(taxatype_naam) %>% df_to_named_list()
 
-waterschapsgrens <- readOGR(dsn='data/shape/wsgrens2.shp', stringsAsFactors = FALSE)
+waterschapsgrens <- read_sf(dsn='data/shape/wsgrens2.shp')
 #addPolylines(data = waterschapsgrens, color = "red", weight = "3")
 
 
